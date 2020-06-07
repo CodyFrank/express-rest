@@ -31,5 +31,12 @@ router.get("/:id", (req, res) => {
     .catch(err => res.json({errormessage: (err)}))
 })
 
+// post delete
+router.delete("/:id", (req, res) => {
+    Post.remove({ _id: req.params.id })
+    .then(data => res.json(data))
+    .catch(err => res.json({ errormessage: (err) }))
+})
+
 
 module.exports = router
