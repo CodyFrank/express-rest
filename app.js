@@ -4,12 +4,15 @@ const app = express()
 
 const mongoose = require('mongoose')
 
+const bodyParser = require('body-parser')
+
 require('dotenv/config')
 
 // import routes
 const postsRoute = require('./routes/posts')
 
 // middleware
+app.use(bodyParser.json())
 app.use('/posts', postsRoute)
 
 // home route
@@ -19,7 +22,13 @@ app.get("/", (req, res) => {
 
 // connect to db 
 
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }, console.log("connected to db"))
+mongoose.connect(process.env.DB_CONNECTION, 
+    { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
+    }, 
+    console.log("connected to db")
+)
 
 // listen to server
 
