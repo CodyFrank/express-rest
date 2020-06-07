@@ -38,5 +38,18 @@ router.delete("/:id", (req, res) => {
     .catch(err => res.json({ errormessage: (err) }))
 })
 
+// post update
+router.patch("/:id", (req, res) => {
+    Post.updateOne({ _id: req.params.id },
+        {
+            $set : { 
+                title: req.body.title,
+                content: req.body.content
+            }
+    })
+    .then(data => res.json(data))
+    .catch(err => res.json({ errormessage: (err)}))
+})
+
 
 module.exports = router
