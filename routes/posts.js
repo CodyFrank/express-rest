@@ -3,13 +3,14 @@ const router = express.Router()
 const Post = require('../models/Posts')
 
 
-
+// posts index 
 router.get("/", (req, res) => {
     Post.find()
     .then(data => res.json(data))
     .catch(err => res.json(err))
 })
 
+// posts create
 router.post("/", (req, res) => {
     const post = new Post(
         {
@@ -21,6 +22,13 @@ router.post("/", (req, res) => {
     post.save()
     .then(data => res.json(data))
     .catch(err => res.json(err))
+})
+
+// posts show
+router.get("/:id", (req, res) => {
+    Post.findById(req.params.id)
+    .then(data => res.json(data))
+    .catch(err => res.json({errormessage: (err)}))
 })
 
 
