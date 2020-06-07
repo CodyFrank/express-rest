@@ -40,15 +40,28 @@ router.delete("/:id", (req, res) => {
 
 // post update
 router.patch("/:id", (req, res) => {
-    Post.updateOne({ _id: req.params.id },
-        {
-            $set : { 
-                title: req.body.title,
-                content: req.body.content
-            }
-    })
-    .then(data => res.json(data))
-    .catch(err => res.json({ errormessage: (err)}))
+    const post = Post.findById(req.params.id)
+    if (Object.keys(req.body).includes("title")) {
+        Post.updateOne({ _id: req.params.id },
+            {
+                $set : { 
+                    title: req.body.title
+                }
+        })
+        .then(data => res.json(data))
+        .catch(err => res.json({ errormessage: (err)}))
+    }
+    
+    if ( Object.keys(req.body).includes("content")) {
+        Post.updateOne({ _id: req.params.id },
+            {
+                $set : { 
+                    content: req.body.content
+                }
+        })
+        .then(data => res.json(data))
+        .catch(err => res.json({ errormessage: (err)}))
+    }
 })
 
 
