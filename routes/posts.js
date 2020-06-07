@@ -5,7 +5,9 @@ const Post = require('../models/Posts')
 
 
 router.get("/", (req, res) => {
-    res.send("posts")
+    Post.find()
+    .then(data => res.json(data))
+    .catch(err => res.json(err))
 })
 
 router.post("/", (req, res) => {
